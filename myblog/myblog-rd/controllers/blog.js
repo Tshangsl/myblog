@@ -73,6 +73,27 @@ module.exports = {
       console.log(err);
     }
   },
+  changeComment:async(ctx,next)=>{
+    try{
+      // 接收数据
+      let {content,user_id,blog_id} = ctx.request.body;
+      // 验证
+      // 连接数据库
+      let results = await blogModel.saveBlogComment( content, user_id,blog_id);
+      if (results.insertId > 0) {
+        ctx.body = {
+          state: "success",
+        };
+      } else {
+        ctx.body = {
+          state: "fail",
+        };
+      }
+    }catch(err){
+      ctx.status = 500;
+      console.log(err);
+    }
+  },
   changeBlog:async (ctx,next)=>{
     try{
       // 接收数据

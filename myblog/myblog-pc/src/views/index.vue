@@ -11,6 +11,7 @@
         <p class="blog-content">{{ item.content }}</p>
         <span class="post-time">{{ item.postTime }}</span>
         <el-button @click="delMyBlog(item.blog_id)" plain>删除文章</el-button>
+        <el-button @click="goPostComment(item.blog_id)" plain>发表评论</el-button>
       </div>
     </div>
   </div>
@@ -43,6 +44,9 @@ export default {
     goDetail(id) {
       this.$router.push("/blog/detail/" + id);
     },
+    goPostComment(id){
+       this.$router.push('/blog/postComment/'+id)
+    },
     delMyBlog(id) {
       this.$http
         .get("/blog/del", {
@@ -73,7 +77,7 @@ export default {
     margin: 20px auto;
   }
   .blog {
-    background: #32c1fb;
+    background: #ccc;
     padding: 20px;
     margin: 20px 0;
     border-radius: 10px;

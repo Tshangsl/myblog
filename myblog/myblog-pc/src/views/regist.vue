@@ -1,19 +1,23 @@
 <template>
-  <div class="login_container">
-    <h1>SIGN IN LI'S BLOG</h1>
-    <div class="login_box">
+  <div class="regist-container">
+    <h1>SIGN UP LI'S BLOG</h1>
+    <div class="regist_box">
       <el-form size="mini">
         <el-form-item>
-          <el-input v-model="username" placeholder="用户名"></el-input>
+          <el-input v-model="username" placeholder="姓名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="password" placeholder="密码" show-password></el-input>
+          <el-input v-model="nickname" placeholder="昵称"></el-input>
         </el-form-item>
-        <!-- <el-form-item>
-          <el-checkbox label="记住我" class="rememberMe"></el-checkbox>
-        </el-form-item> -->
         <el-form-item>
-          <el-button @click="doLogin" type="primary">登录</el-button>
+          <el-input
+            v-model="password"
+            placeholder="密码"
+            show-password
+          ></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="doRegist" type="primary">注册</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -34,10 +38,9 @@
       :clickEffect="true"
       clickMode="push"
       class="lizi"
-      style="height:100%"
+      style="height: 100%"
     >
     </vue-particles>
-
   </div>
 </template>
 
@@ -45,37 +48,27 @@
 export default {
   data() {
     return {
-      username: "",
-      password: "",
+      username:'',
+      nickname:'',
+      password:''
     };
   },
   methods: {
-    doLogin() {
+    doRegist() {
       this.$http
-        .post("/user/login", {
+        .post("/user/regist", {
           username: this.username,
+          nickname:this.nickname,
           password: this.password,
         })
         .then((res) => {
           console.log(res);
-          // 存在state中 浏览器不关闭 始终有
-          let { state, token, user } = res.data;
+          let { state } = res.data;
           if (state == "success") {
-            // 登录成功
-            // 存储用户信息
-            // this.$store.dispatch('storeLoginUser',user)
-            this.$store.commit("storeLoginUser", user);
-
-            //调用mutations中的方法是commit方法
-            // 存储token
-            // 1.vuex中(state) 2.cookie中 3.localStorage|session中
-            // 本项目中操作把token存储到localStorage和vuex中
-
-            // 调用action中的方法是dispatch
-            this.$store.dispatch("setToken", token);
-            this.$router.push("/index");
+            alert('恭喜您，注册成功，点击确定,即为您跳到登陆页面')
+            this.$router.push("/login");
           } else {
-            alert("用户名或密码不正确");
+            alert("注册失败，请重新尝试，或选择再见");
           }
         });
     },
@@ -83,11 +76,11 @@ export default {
 };
 </script>
 
-<style scoped>
-body{
-    background-image: url("../../public/imgs/bird.jpg");
+<style lang="scss">
+body {
+  background-image: url("../../public/imgs/bird.jpg");
 }
-.login_container {
+.regist_container {
   /* background-image: linear-gradient(-180deg, #1a1454 0%, #0e81a5 100%); */
   /* background-image: url("../assets/login.jpg"); */
   /* background-repeat: no-repeat; */
@@ -98,22 +91,20 @@ body{
   font-size: 13px;
   font-weight: 100;
   /* height: 100%; */
-  background-image: url("../../public/imgs/bird.jpg");
 }
-h1{
+h1 {
   margin: 20px auto;
 }
-.login_box {
+.regist_box {
   width: 308px;
   height: 228px;
   /* background-color: #fff; */
-  background-color: #F2F6FC;
+  background-color: #f2f6fc;
   border-radius: 5px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  
 }
 .el-form {
   padding: 32px;

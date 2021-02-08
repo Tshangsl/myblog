@@ -3,6 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+// 引入富文本编辑器？
+import E from "wangeditor"
+const editor = new E("#div1")
+editor.create()
+
 //引入npm下载的axios 和 vue-axios
 // import axios from 'axios'
 // import VueAxios from 'vue-axios'

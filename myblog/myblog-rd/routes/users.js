@@ -5,6 +5,9 @@ router.prefix('/user')
 
 // login中是生成token而不是验证token
 router.post('/login', user.login)
+
+router.post('/regist',user.regist)
+
 module.exports = router
 
 // function (ctx, next) {

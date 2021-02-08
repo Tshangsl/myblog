@@ -6,12 +6,13 @@ router.prefix("/blog");
 
 router.get("/list", verifyToken, blog.listBlog);
 
-
 router.get("/detail", verifyToken, blog.getBlogDetail);
 
 router.get('/del',verifyToken,blog.changeBlog)
 
 router.post('/post', blog.postBlog);
+
+router.post('/postComment',verifyToken,blog.changeComment)
 
 module.exports = router;
 

@@ -6,6 +6,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'origin',
+    component: () => import('../views/origin.vue')
+  },
+  {
+    path: '/index',
     name: 'index',
     component: () => import('../views/index.vue')
   },
@@ -13,6 +18,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import('../views/login.vue')
+  },
+  {
+    path: '/regist',
+    name: 'regist',
+    component: () => import('../views/regist.vue')
   },
   {
     path: '/blog/detail/:blog_id',
@@ -23,6 +33,11 @@ const routes = [
     path: '/blog/post',
     name: 'postBlog',
     component: () => import('../views/postBlog.vue')
+  },
+  {
+    path: '/blog/postComment/:blog_id',
+    name: 'postComment',
+    component: () => import('../views/postComment.vue')
   },
 ]
 

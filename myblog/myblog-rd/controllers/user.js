@@ -2,6 +2,23 @@ const userModel = require('../models/userModel')
 const {createToken} = require('../auth')
 
 module.exports = {
+    regist:async function(ctx,next){
+        // 接收数据
+        let {username,nickname,password} = ctx.request.body;
+        // 验证
+        // 连接数据库
+        let results = await userModel.registByNameAndPwd(username,nickname,password);
+        console.log(results);
+        if (results.insertId > 0) {
+            ctx.body = {
+              state: "success",
+            };
+          } else {
+            ctx.body = {
+              state: "fail",
+            };
+          }
+    },
     login: async function (ctx, next) {
         // 1.接数据 固定语法
         // post方式传送数据 ctx.request.body

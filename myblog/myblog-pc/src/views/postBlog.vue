@@ -18,6 +18,9 @@
         >
         </el-input>
       </div>
+      <div id="div1">
+
+      </div>
       <el-row>
         <el-button @click="postBlog" plain>发表文章</el-button>
       </el-row>
@@ -47,7 +50,7 @@ export default {
           .then((res) => {
             let { state } = res.data;
             if (state == "success") {
-              this.$router.push("/");
+              this.$router.push("/index");
             } else {
               alert("发表文章失败!");
             }
@@ -62,13 +65,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+body {
+  background-image: url("../../public/imgs/bird.jpg");
+}
 .container {
   .art-related {
     margin: 20px auto;
     width: 800px;
     height: 400px;
     border-radius: 10px;
-    background-color: #32c1fb;
+    background-color: #ccc;
     overflow: hidden;
     .art-title {
       margin: 30px auto;
