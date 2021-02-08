@@ -15,8 +15,10 @@ module.exports = {
           blog_id  
         })
     },
-    getBlogs() {
-        return db.query("select * from t_blog order by post_time desc");
+    getBlogs(startNum,pageSize) {
+        // return db.query("select * from t_blog order by post_time desc");
+        return db.query(`SELECT * FROM t_blog ORDER BY post_time desc LIMIT ${startNum},${pageSize}`);
+        // return db.query(`SELECT * FROM t_blog LIMIT ${startNum},${pageSize}`);
     },
     getBlogById(blogId){
         return db.query(`
@@ -30,3 +32,4 @@ module.exports = {
         return db.query('delete from t_blog where blog_id = ?',[blog_id])
     }
 }
+

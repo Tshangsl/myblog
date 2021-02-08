@@ -17,7 +17,15 @@ module.exports = {
   },
   listBlog: async (ctx, next) => {
     try {
-      let results = await blogModel.getBlogs();
+      // 接收数据
+      let {pageSize,currentPage} = ctx.query;
+      console.log(pageSize,currentPage);
+      // 连接数据库
+      let startNum = (currentPage-1)*pageSize;
+      console.log(startNum);
+      let results = await blogModel.getBlogs(startNum,pageSize);
+      console.log(results);
+      // 根据数据库操作的结果返回相应的信息
       if (results.length > 0) {
         ctx.body = {
           state: "success",

@@ -23,7 +23,14 @@
     <!-- 分页功能应该是前端传参 后端实现 
     后端返回响应数据 前端对其进行相应展示 -->
     <div class="list-footer">
-      <el-pagination background layout="prev, pager, next" :total="50">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="12"
+        :current-page.sync="currentPage"
+        :page-size="pageSize"
+        @current-change="handleCurrentChange"
+      >
       </el-pagination>
     </div>
   </div>
@@ -33,6 +40,8 @@ export default {
   data() {
     return {
       blogList: [],
+      pageSize: 4,
+      currentPage: 1,
     };
   },
   created() {
@@ -40,15 +49,26 @@ export default {
   },
   methods: {
     getData() {
-      this.$http.get("/blog/list").then((res) => {
-        let { state } = res.data;
-        if (state == "auth-fail") {
-          alert("请求未授权-then!");
-        } else if (state == "success") {
-          let { blogs } = res.data;
-          this.blogList = blogs;
-        }
-      });
+      this.$http
+        .get("/blog/list", {
+          params: {
+            pageSize: this.pageSize,
+            currentPage: this.currentPage,
+          },
+        })
+        .then((res) => {
+          let { state } = res.data;
+          if (state == "auth-fail") {
+            alert("请求未授权-then!");
+          } else if (state == "success") {
+            let { blogs } = res.data;
+            this.blogList = blogs;
+          }
+        });
+    },
+    handleCurrentChange(){
+      console.log(this.currentPage);
+      this.getData();
     },
     goPostBlog() {
       this.$router.push("/blog/post");
@@ -86,7 +106,7 @@ export default {
 .container {
   border: 1px solid #ccc;
   padding: 0 -80px;
-  h1{
+  h1 {
     margin: 20px 0;
   }
   .list-footer {
@@ -116,7 +136,7 @@ export default {
     margin: 10px 300px 20px 0;
     float: right;
   }
-  .blog-title{
+  .blog-title {
     cursor: pointer;
     margin: 20px 0;
   }
