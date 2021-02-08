@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 style="color: #ccc">WELCOME TO MY BLOG</h1>
-    <img style="display:block;margin:30px auto" src="../../public/imgs/white.jpg" alt="">
+    <!-- <img style="display:block;margin:30px auto" src="../../public/imgs/white.jpg" alt=""> -->
     <el-link type="primary" @click="signIn">登录</el-link>|
     <el-link type="success" @click="signUp">注册</el-link>
     <p>

@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <el-row>
-      <el-button @click="goPostBlog" plain>发表文章</el-button>
-    </el-row>
+    <h1>BLOG'S ARTICLE</h1>
     <div class="blog-list">
       <div class="blog" v-for="item in blogList" :key="item.blogId">
         <h3 class="blog-title">
@@ -10,9 +8,23 @@
         </h3>
         <p class="blog-content">{{ item.content }}</p>
         <span class="post-time">{{ item.postTime }}</span>
-        <el-button @click="delMyBlog(item.blog_id)" plain>删除文章</el-button>
-        <el-button @click="goPostComment(item.blog_id)" plain>发表评论</el-button>
+        <el-link type="info" @click="delMyBlog(item.blog_id)">删除文章</el-link
+        >|
+        <el-link type="info" @click="goPostComment(item.blog_id)"
+          >发表评论</el-link
+        >
       </div>
+    </div>
+    <div class="blog-post">
+      <el-row>
+        <el-button @click="goPostBlog" plain>发表文章</el-button>
+      </el-row>
+    </div>
+    <!-- 分页功能应该是前端传参 后端实现 
+    后端返回响应数据 前端对其进行相应展示 -->
+    <div class="list-footer">
+      <el-pagination background layout="prev, pager, next" :total="50">
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -44,8 +56,8 @@ export default {
     goDetail(id) {
       this.$router.push("/blog/detail/" + id);
     },
-    goPostComment(id){
-       this.$router.push('/blog/postComment/'+id)
+    goPostComment(id) {
+      this.$router.push("/blog/postComment/" + id);
     },
     delMyBlog(id) {
       this.$http
@@ -59,7 +71,7 @@ export default {
           if (state == "auth-fail") {
             alert("请求未授权-then!");
           } else if (state == "success") {
-            alert('删除成功!')
+            alert("删除成功!");
             // let { blogs } = res.data;
             // this.blogList = blogs;
             this.getData();
@@ -72,22 +84,45 @@ export default {
 
 <style scoped lang="scss">
 .container {
+  border: 1px solid #ccc;
+  padding: 0 -80px;
+  h1{
+    margin: 20px 0;
+  }
+  .list-footer {
+    margin: 30px auto;
+  }
   .blog-list {
     width: 815px;
     margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .blog {
+      // background: #ccf;
+      background-image: url("../../public/imgs/bird.jpg");
+      padding: 20px;
+      margin: 20px 5px;
+      // width: 300px;
+      width: 40%;
+      height: 300px;
+      border-radius: 10px;
+      box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.05);
+      opacity: 0.5;
+      border: 1px solid #ccc;
+    }
   }
-  .blog {
-    background: #ccc;
-    padding: 20px;
+  .blog-post {
+    margin: 10px 300px 20px 0;
+    float: right;
+  }
+  .blog-title{
+    cursor: pointer;
     margin: 20px 0;
-    border-radius: 10px;
-    box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.05);
   }
-  .blog-title,
   .blog-content,
   .post-time {
     margin: 20px 0;
-    color: #fff;
   }
 }
 </style>

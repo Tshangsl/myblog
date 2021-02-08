@@ -1,4 +1,5 @@
 const blogModel = require("../models/blogModel");
+const dataTimeUtil = require('../utils/dataTimeUtil')
 
 module.exports = {
   postBlog: async function (ctx, next) {
@@ -41,6 +42,7 @@ module.exports = {
       // 根据数据库操作的结果返回相应的信息
       if (results.length > 0) {
         let { blog_id, title, content, post_time } = results[0];
+        post_time = dataTimeUtil.formatTime(post_time);
         let blogInfo = {
           blog_id,
           title,
@@ -50,6 +52,7 @@ module.exports = {
         blogInfo.comments = [];
         for (let i = 0; i < results.length; i++) {
           let obj = results[i];
+          obj.comm_post_time = dataTimeUtil.formatTime(obj.comm_post_time);
           blogInfo.comments.push({
             comm_id: obj.comm_id,
             comm_content: obj.comm_content,

@@ -18,9 +18,7 @@
         >
         </el-input>
       </div>
-      <div id="div1">
-
-      </div>
+      <div id="div1"></div>
       <el-row>
         <el-button @click="postBlog" plain>发表文章</el-button>
       </el-row>
@@ -69,12 +67,12 @@ body {
   background-image: url("../../public/imgs/bird.jpg");
 }
 .container {
+  background-image: url("../../public/imgs/bird.jpg");
   .art-related {
     margin: 20px auto;
     width: 800px;
     height: 400px;
     border-radius: 10px;
-    background-color: #ccc;
     overflow: hidden;
     .art-title {
       margin: 30px auto;

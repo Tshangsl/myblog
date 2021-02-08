@@ -59,6 +59,7 @@ export default {
       }
     },
     goIndex() {
+      alert('即将为您跳到文章页面');
       this.$router.push("/index");
     },
   },
