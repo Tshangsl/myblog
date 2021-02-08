@@ -1,14 +1,9 @@
 <template>
   <div class="comm-container">
     <p>请在此处输入你的评论</p>
-    <el-input
-      type="textarea"
-      :rows="10"
-      placeholder="请输入内容"
-      v-model="content"
-      style="width: 500px"
-    >
-    </el-input>
+    <div class="text-area">
+      <editor ref="editorOne" v-model="content" @change="change"></editor>
+    </div>
     <div class="commBtn">
       <el-button @click="postComment" plain>提交评论</el-button>
       <el-button @click="goIndex" plain>取消</el-button>
@@ -18,7 +13,9 @@
 </template>
 
 <script>
+import Editor from "@/components/wangEnduit/";
 export default {
+  components: { Editor },
   data() {
     return {
       content: "",
@@ -36,7 +33,7 @@ export default {
     // user_id
     postComment() {
       let loginUser = this.$store.state.loginUser;
-      let blog_id = this.$route.params.blog_id                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+      let blog_id = this.$route.params.blog_id;
       if (loginUser) {
         this.$http
           .post("/blog/postComment", {
@@ -47,7 +44,7 @@ export default {
           .then((res) => {
             let { state } = res.data;
             if (state == "success") {
-              alert('恭喜您发表评论成功,即将为您跳到文章页面')
+              alert("恭喜您发表评论成功,即将为您跳到文章页面");
               this.$router.push("/index");
             } else {
               alert("发表文章失败！请重新尝试");
@@ -59,7 +56,7 @@ export default {
       }
     },
     goIndex() {
-      alert('即将为您跳到文章页面');
+      alert("即将为您跳到文章页面");
       this.$router.push("/index");
     },
   },
@@ -69,6 +66,10 @@ export default {
 <style lang="scss">
 body {
   background-image: url("../../public/imgs/bird.jpg");
+}
+.text-area{
+  width: 600px;
+  margin: 20px auto;
 }
 .comm-container {
   margin: 50px auto;

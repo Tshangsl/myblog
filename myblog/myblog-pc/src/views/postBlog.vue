@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <el-row>
+      <el-button @click="postBlog" plain>发表文章</el-button>
+    </el-row>
     <div class="art-related">
       <div class="art-title">
         <el-input
@@ -8,26 +11,17 @@
           style="width: 200px"
         ></el-input>
       </div>
-      <div class="art-content">
-        <el-input
-          type="textarea"
-          :rows="10"
-          placeholder="请输入内容"
-          v-model="content"
-          style="width: 636px"
-        >
-        </el-input>
+      <div>
+        <editor ref="editorOne" v-model="content" @change="change"></editor>
       </div>
-      <div id="div1"></div>
-      <el-row>
-        <el-button @click="postBlog" plain>发表文章</el-button>
-      </el-row>
     </div>
   </div>
 </template>
 
 <script>
+import Editor from "@/components/wangEnduit/";
 export default {
+  components: { Editor },
   data() {
     return {
       title: "",
@@ -57,6 +51,9 @@ export default {
         alert("请登陆后再进行操作!!");
         this.$router.push("/login");
       }
+    },
+    change(val) {
+      console.log(val);
     },
   },
 };

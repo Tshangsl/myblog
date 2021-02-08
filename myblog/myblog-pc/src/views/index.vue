@@ -6,7 +6,8 @@
         <h3 class="blog-title">
           <span @click="goDetail(item.blog_id)">{{ item.title }}</span>
         </h3>
-        <p class="blog-content">{{ item.content }}</p>
+        <!-- <p class="blog-content">{{ item.content }}</p> -->
+        <p class="blog-content" v-html="item.content"></p>
         <span class="post-time">{{ item.postTime }}</span>
         <el-link type="info" @click="delMyBlog(item.blog_id)">删除文章</el-link
         >|

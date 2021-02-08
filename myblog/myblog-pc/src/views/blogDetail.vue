@@ -6,7 +6,8 @@
         <h3>{{ blog && blog.title }}</h3>
         <span>{{ blog && blog.post_time }}</span>
       </div>
-      <div class="blog-content">{{ blog && blog.content }}</div>
+      <!-- <div class="blog-content">{{ blog && blog.content }}</div> -->
+      <div class="blog-content" v-html="blog && blog.content"></div>
       <el-divider></el-divider>
       <div class="comments">
         <div>
@@ -14,7 +15,8 @@
         </div>
         <div class="comment" v-for="item in blog.comments" :key="item.blog_id">
           <!-- <div class="comment-id">{{ item && item.comm_id }}</div> -->
-          <div class="comment-content">{{ item && item.comm_content }}</div>
+          <!-- <div class="comment-content">{{ item && item.comm_content }}</div> -->
+          <div class="comment-content" v-html="item && item.comm_content"></div>
           <div class="comment-info">
             <div class="userinfo">
               <span>{{ item && item.username }}</span>
@@ -27,7 +29,7 @@
         </div>
       </div>
     </div>
-    <el-button @click="goIndex" plain>回到文章页</el-button>
+    <el-button style="float:right;margin-bottom:20px" @click="goIndex" plain>回到文章页</el-button>
   </div>
 </template>
 <script>

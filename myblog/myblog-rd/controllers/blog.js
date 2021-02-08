@@ -88,6 +88,7 @@ module.exports = {
     try{
       // 接收数据
       let {content,user_id,blog_id} = ctx.request.body;
+      console.log(content);
       // 验证
       // 连接数据库
       let results = await blogModel.saveBlogComment( content, user_id,blog_id);
